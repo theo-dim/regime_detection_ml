@@ -1,0 +1,63 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{apa/global//global/global}
+    \entry{2020.03.27.20043752}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d39647fc6f5b8f85d041b0adbed9b52e}{%
+           family={Murray},
+           familyi={M\bibinitperiod},
+           given={Christopher\bibnamedelima JL},
+           giveni={C\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cold Spring Harbor Laboratory Press}%
+      }
+      \strng{namehash}{d39647fc6f5b8f85d041b0adbed9b52e}
+      \strng{fullhash}{d39647fc6f5b8f85d041b0adbed9b52e}
+      \strng{bibnamehash}{d39647fc6f5b8f85d041b0adbed9b52e}
+      \strng{authorbibnamehash}{d39647fc6f5b8f85d041b0adbed9b52e}
+      \strng{authornamehash}{d39647fc6f5b8f85d041b0adbed9b52e}
+      \strng{authorfullhash}{d39647fc6f5b8f85d041b0adbed9b52e}
+      \field{sortinit}{M}
+      \field{sortinithash}{2e5c2f51f7fa2d957f3206819bf86dc3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{medRxiv}
+      \field{title}{Forecasting {COVID-19} impact on hospital bed-days, {ICU}-days, ventilator-days and deaths by {US} state in the next 4 months}
+      \field{year}{2020}
+      \verb{doi}
+      \verb 10.1101/2020.03.27.20043752
+      \endverb
+      \verb{urlraw}
+      \verb https://www.medrxiv.org/content/early/2020/03/30/2020.03.27.20043752
+      \endverb
+      \verb{url}
+      \verb https://www.medrxiv.org/content/early/2020/03/30/2020.03.27.20043752
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
