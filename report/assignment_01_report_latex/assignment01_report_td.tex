@@ -5,16 +5,16 @@
 \begin{document}
 \newgeometry{bottom=1.0in}
 \volumeheader{FE}{690}{Machine Learning in Finance}
-
+	
 % Title
 \begin{center}
-  \title{Latent Dirichlet Allocation on SOMETHING to Extract a Trading Signal}
-  \maketitle
-
+\title{Regime Detection Using Hidden Markov Models and Support Vector Machines}
+\maketitle
+		
 % Authors
 Author: Theo Dimitrasopoulos\upstairs{\affilone*}, Advisor: Zachary Feinstein\upstairs{\affilone**}\\
 {\small \upstairs{\affilone}Department of Financial Engineering; Babbio School of Business}
-
+		
 % Emails  
 \emails{
 \upstairs{*}\textit{tdimitr1@stevens.edu,}
@@ -24,7 +24,7 @@ Author: Theo Dimitrasopoulos\upstairs{\affilone*}, Advisor: Zachary Feinstein\up
 
 % Abstract
 \begin{abstract}
-This paper focuses on Regime Detection in historical markets. It utilizes a Hidden Markov Model (hereinafter referred to as HMM) and Support Vector Machine (hereinafter referred to as SVM) to detect regimes in the iShares MSCI EAFE ETF adjusted close price time series from 2000 to today (chosen mainly due to its greater exposure to overseas mid- and large-cap companies), in order to enable the accurate prediction of the 24-hour trend of a market-on-open order in a domestic exchange. We observe that the HMM accurately predicts regimes in the historical time series very effectively and in relatively short timespans. It is also shown that the classified data after an unsupervised SVM clustering is further enhanced and the regimes further refined. The accuracy is the SVM clusters is heavily influenced by the parameter ν and γ of the Radial Basis kernel Function, as demonstrated is a series of experiments where each of the parameters is altered. The results of the classification can be used to develop a trading strategy for a market-on-open order that is informed by historical market fluctuations.
+This paper focuses on Regime Detection in historical markets. It utilizes a Hidden Markov Model (hereinafter referred to as HMM) and Support Vector Machine (hereinafter referred to as SVM) to detect regimes in the iShares MSCI EAFE ETF adjusted close price time series from 2000 to today (chosen mainly due to its greater exposure to overseas mid- and large-cap companies), in order to enable the accurate prediction of the 24-hour trend of a market-on-open order in a domestic exchange. We observe that the HMM accurately predicts regimes in the historical time series very effectively and in relatively short timespans. It is also shown that the classified data after an unsupervised SVM clustering is further enhanced and the regimes further refined. The accuracy is the SVM clusters is heavily influenced by the parameter $\nu$ and $\gamma$ of the Radial Basis kernel Function, as demonstrated is a series of experiments where each of the parameters is altered. The results of the classification can be used to develop a trading strategy for a market-on-open order that is informed by historical market fluctuations.
 \end{abstract}
 \end{center}
 
@@ -32,14 +32,9 @@ This paper focuses on Regime Detection in historical markets. It utilizes a Hidd
 \small
 Keywords: {Bear Market, Bull Market, Classification, Clustering, EFA, ETF, Hidden Markov Model, Historical Markets, iShares MSCI, Kernel Function, Machine Learning, Markov States, Regime Detection, Support Vector Machine, Radial Basis Function, Time Series, VIX}
 
-
-% These commands need to appear at the point where you want the first page to end.
-\restoregeometry
-\newgeometry{bottom=1.0in}
-
 \section{Introduction}
 \label{sec1}
-The accurate prediction of stock market movements is one of the hallmarks of quantitative finance and algorithmic trading. However, describing stock market behavior in the past is also of great importance and enables prediction in the first place. The focus of this paper is the accurate identification of regimes in historical markets and their classification as either bull or bear markets. To achieve this, two of the most widely used classification algorithms are deployed to analyze the resulting models for the regime detection task. As such, the longer training times of SVM's otherwise robust kernel methodologies on non-linear discriminants along with the speed and efficiency of a HMM provide a close inspection of the main tools for feature detection and market classification. The tools presented in this work respond to the inherent need and high value of good forecasting models for market-on-open orders, as well as the barriers to creating them. In addition to the innate difficulty in predicting market direction, the fair and transparent procedures set forth by the various American and international exchanges (e.g. NASDAQ's opening cross auction procedure) add to the intractability of the problem.\\
+The accurate prediction of stock market movements is one of the hallmarks of quantitative finance and algorithmic trading. However, describing stock market behavior in the past is also of great importance and enables prediction in the first place. The focus of this paper is the accurate identification of regimes in historical markets and their classification as either bull or bear  To achieve this, two of the most widely used classification algorithms are deployed to analyze the resulting models for the regime detection task. As such, the longer training times of SVM's otherwise robust kernel methodologies on non-linear discriminants along with the speed and efficiency of a HMM provide a close inspection of the main tools for feature detection and market classification. The tools presented in this work respond to the inherent need and high value of good forecasting models for market-on-open orders, as well as the barriers to creating them. In addition to the innate difficulty in predicting market direction, the fair and transparent procedures set forth by the various American and international exchanges (e.g. NASDAQ's opening cross auction procedure) add to the intractability of the problem.\\
 The motivation behind the choice of this particular ETF (iShares MSCI EAFE ETF, or EFA by its ticker) simply lies in the time difference between the US and international markets; Since the aim of the tool is to accurately inform a market-on-open order in a US exchange, the closest proxy to after-hours market data is foreign developments and trading activity overseas. In other words, domestic markets close at 4pm, but international markets are active before the next day's opening and dramatically influence the levels and state of that market.
 
 
@@ -75,31 +70,43 @@ In summary, HMM’s aim to solve three fundamental problems [1]:\\
 \section{Support Vector Machines}
 \label{sec3}
 In the realm of novelty and outlier detection, the original work of Vapnik and Chevronenkis in 1963 set the ground for one of the most widely used and effective tools for the task: the SVM algorithm. In this work, the One-Class SVM with a Radial Basis Function kernel is used.\\
+
 For any SVM, a quadratic programming problem that separates support vectors from the training data lies at the core [2]. The QP solver scales between O(Nfeatures*nsamples2)  and O(nfeatures*nsamples3), thus generating the long runtimes that SVM’s are known for. The Radial Basis kernel function is the following,
 
 \begin{equation}
 -\frac{\hbar^2}{2m} \frac{d^2 \psi}{dx^2} + V\psi = E\psi\\
 \end{equation}
 
-The parameter γ>0 defines the influence of each training sample i.e. a smaller γ affects other samples less, as they can be farther away [2]. A second parameter ν=0.1 is defined in the model, which approximates the fraction of training errors and support vectors, and is set at 0.1, since the scikit-learn documentation section that tests various cases of ν yields a good fit for the sample train/test data [2]. A second experiment with ν=0.5 to illustrate how expanding the margin of detection error could result in misclassification. In summary, the One-class SVM deployed in this paper learns a decision function by classifying data as more similar of different to the training set (30-day windows of prior data to predict each point in the time series).
+The parameter $\gamma>0$ defines the influence of each training sample i.e. a smaller $\gamma$ affects other samples less, as they can be farther away [2]. A second parameter $\nu=0.1$ is defined in the model, which approximates the fraction of training errors and support vectors, and is set at $0.1$, since the scikit-learn documentation section that tests various cases of $\nu$ yields a good fit for the sample train/test data [2]. A second experiment with $\nu=0.5$ to illustrate how expanding the margin of detection error could result in misclassification. In summary, the One-class SVM deployed in this paper learns a decision function by classifying data as more similar of different to the training set (30-day windows of prior data to predict each point in the time series).
+
 Sed id elit eu arcu varius tempor tincidunt in orci. Nullam accumsan diam vitae nibh fermentum, nec facilisis leo pulvinar. Ut condimentum nisl in orci euismod mattis. Fusce at mauris augue. Because we use section titles in a pull-down menu for the online version as signposts, please use as specific and informative titles as possible. Avoid generic section titles such as ``methods,'' ``data,'' and ``results''. Such titles are common in certain technical journals, but they do not work well for HDSR, which aims to publish ``everything data science and data science for everyone". Try to use titles that will make readers (and you!) think that ``Hmmm, that sounds interesting'' or ``Hmmm, that's unexpected and I better to take a look.''   The same goes with the article title, and indeed the entire article.  Considering you are not writing a technical article, but rather telling a data science story with layered plots, an enticing flow, and a memorable punch line. That is, an article you want to read, and will walk away feeling ``Wow, that was inspiring -- I never thought about that!'' Because we use section titles in a pull-down menu for the online version as signposts, please use as specific and informative titles as possible. Avoid generic section titles such as ``methods,'' ``data,'' and ``results''. Such titles are common in certain technical journals, but they do not work well for HDSR, which aims to publish ``everything data science and data science for everyone". Try to use titles that will make readers (and you!) think that ``Hmmm, that sounds interesting'' or ``Hmmm, that's unexpected and I better to take a look.''   The same goes with the article title, and indeed the entire article.  Considering you are not writing a technical article, but rather telling a data science story with layered plots, an enticing flow, and a memorable punch line. That is, an article you want to read, and will walk away feeling ``Wow, that was inspiring -- I never thought about that!'' 
 
 % 1. When figure position is crucial, use the [H] tag to enforce absolute positioning
 % 2. Image files should be referenced without file extension
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.35]{iris_pairs} \\
-    \caption{This is an example figure}
-    \label{fig:my_label}
+\begin{figure}
+\begin{subfigure}{0.5\textwidth}
+	\centering
+	\includegraphics[width=0.4\linewidth]{graphics/adj_close_graph_pct_change}
+	\caption{Daily returns between 2000-2020 for the EAFE ETF.}
+	\label{fig:adj_close_pct}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+	\centering
+	\includegraphics[width=0.4\linewidth]{graphics/hmm_graph_pct_change}
+	\caption{Hidden Markov states revealed in the data; Hidden State 0 reveals an upwards-trending/bull market (base), whereas State 1 reveals a downward-trending/bear market.}
+	\label{fig:adj_close_pct}
+\end{subfigure}
+\caption{A figure with two subfigures}
+\label{fig:adj_close_hmm_vs_raw_pct}
 \end{figure}
 
 \section{Results and Discussion}
 \label{sec4}
-For the HMM Hidden State detection, the adjusted closing price data was transformed to daily returns and plotted for an initial inspection in Fig. (1)(a). Fig. (1)(b) shows the two identified hidden states: Hidden State 1 shows a greater variance (5.4e-4) and thus suggests a more volatile market than the one detected in Hidden State 0 (8.5e-5).\\
+For the HMM Hidden State detection, the adjusted closing price data was transformed to daily returns and plotted for an initial inspection in Fig. (1)(a). Fig. (1)(b) shows the two identified hidden states: Hidden State 1 shows a greater variance ($5.4e-4$) and thus suggests a more volatile market than the one detected in Hidden State 0 ($8.5e-5$).\\
 \\
 Figs\\
 \\
-In the case of an SVM, we see in Fig. (2)(a) that the regimes detected by the algorithm are more refined; Upon first observation, the algorithm detects minor downturns that are not seen in the HMM result, but also includes areas that would be classified as upwards-trending/bull markets by the HMM. This result is mainly dictated by the choice of ν: for a smaller ν, the algorithm generates fewer training errors for each of the support vectors, and could narrow the list of detected regimes by shrinking the margin of classification error (Fig (2)(b) for ν=0.1).\\
+In the case of an SVM, we see in Fig. (2)(a) that the regimes detected by the algorithm are more refined; Upon first observation, the algorithm detects minor downturns that are not seen in the HMM result, but also includes areas that would be classified as upwards-trending/bull markets by the HMM. This result is mainly dictated by the choice of $\nu$: for a smaller $\nu$, the algorithm generates fewer training errors for each of the support vectors, and could narrow the list of detected regimes by shrinking the margin of classification error (Fig (2)(b) for $\nu=0.1$).\\
 \section{Next Steps}
 \label{sec5}
 The next steps for this project involve the analysis of additional data, such as the VIX index, to illustrate further the existence of hidden states of bull/bear markets in the relevant historical time series. Additionally, the pièce de resistance of any regime detection tool, including the one presented here is their deployment in an actual trading strategy, where the strategy returns would be benchmarked against the market returns to determine their efficacy. The next development of this paper will utilize the regime detection tools and along with a list of market indicators will generate a signal that will track the cumulative returns of a historical time series for a US-exchange listed security. This will ultimately determine whether there is a solid ground for the execution of said trade. Some things to be aware of in the data are autocorrelation of returns and avoiding the pitfall of simply fitting the data to get empirical results that are compatible with the original theoretical postulations.
